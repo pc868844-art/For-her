@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>A Treasured Scrapbook Corner For You 🌸</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
+
+        :root {
+            --pink-deep: #ff7597;
+            --pink-hover: #ff5e84;
+            --pink-soft: #ffcbd5;
+            --pink-pastel: #ffb7b2;
+            --text-dark: #4a3e4d;
+            --bg-washi: repeating-linear-gradient(45deg, #ffcbd5, #ffcbd5 10px, #ffb7b2 10px, #ffb7b2 20px);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Quicksand', sans-serif;
+            color: var(--text-dark);
+            background-color: #fcf6f5;
+        }
+
+        /* --- IMMERSIVE COZY SCRAPBOOK BACKGROUND --- */
+        .scrapbook-bg-layer {
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,229,236,0.6) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(240,247,255,0.7) 0%, transparent 50%),
+                #fbf5f3;
+            animation: slowCanvasDrift 40s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowCanvasDrift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-2%, 1%) scale(1.02); }
+            100% { transform: translate(1%, -1%) scale(0.98); }
+        }
+
+        /* Vintage Newsprint Fragment Overlay */
+        .bg-newspaper-texture {
+            position: absolute;
+            top: 8%;
+            left: 5%;
+            width: 400px;
+            height: 400px;
+            background: rgba(244, 238, 224, 0.45);
+            border: 1px solid rgba(0,0,0,0.03);
+            transform: rotate(-8deg);
+            opacity: 0.5;
+            padding: 15px;
+            font-family: serif;
+            font-size: 8px;
+            line-height: 1.2;
+            overflow: hidden;
+            box-shadow: 2px 5px 15px rgba(0,0,0,0.02);
+        }
+        .bg-newspaper-texture::before {
+            content: "THE DAILY CHRONICLE \n\n Local Cat Council Decides To Give Everyone Flowers. Millions Rejoice Over Sudden Overflow Of Cuteness. Soft clouds observed moving gracefully across the eastern aesthetic baseline. Beautiful days expected ahead indefinitely.";
+            white-space: pre-wrap;
+            color: #7a7065;
+        }
+
+        /* Torn Scrap Paper Clusters */
+        .bg-torn-paper-pink {
+            position: absolute;
+            bottom: 12%;
+            right: -5%;
+            width: 350px;
+            height: 250px;
+            background: #ffe5ec;
+            transform: rotate(14deg);
+            clip-path: polygon(10% 0%, 100% 4%, 95% 85%, 15% 100%, 0% 70%, 8% 40%);
+            opacity: 0.6;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
+        }
+
+        .bg-torn-paper-grid {
+            position: absolute;
+            top: -5%;
+            right: 8%;
+            width: 280px;
+            height: 280px;
+            background-color: #fff;
+            background-image: linear-gradient(rgba(255,183,178,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,183,178,0.15) 1px, transparent 1px);
+            background-size: 20px 20px;
+            transform: rotate(-15deg);
+            clip-path: polygon(0% 12%, 88% 0%, 100% 75%, 15% 95%, 4% 50%);
+            opacity: 0.5;
+        }
+
+        /* Doodles and Sticker Background Artifacts */
+        .bg-handwritten-doodle {
+            position: absolute;
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            color: rgba(255, 117, 151, 0.3);
+            font-weight: bold;
+        }
+
+        /* Vintage Film Grain Screen */
+        .film-grain-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Ambient Layers */
+        #particle-canvas-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* --- PRESTIGE STAGE STRUCTURE --- */
+        .view-stage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.92) translateY(30px) rotate(-1deg);
+            transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1), transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .view-stage.active-stage {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1) translateY(0) rotate(0deg);
+        }
+
+        /* --- MEMORY STICKY & JOURNAL WRITING STYLE ELEMENTS --- */
+        .scrapbook-note-card {
+            background: #fffdf6;
+            border-radius: 4px;
+            padding: 32px 26px;
+            width: 100%;
+            max-width: 390px;
+            box-shadow: 
+                -1px 2px 5px rgba(0,0,0,0.05),
+                5px 15px 30px rgba(74, 62, 77, 0.12);
+            text-align: center;
+            position: relative;
+            max-height: 92vh;
+            overflow-y: auto;
+            scrollbar-width: none;
+            border-left: 8px solid var(--pink-pastel);
+        }
+        .scrapbook-note-card::-webkit-scrollbar { display: none; }
+
+        /* Washi Tape Ribbon Decorator */
+        .washi-tape-sticker {
+            position: absolute;
+            top: -16px;
+            left: 30%;
+            width: 40%;
+            height: 32px;
+            background: var(--bg-washi);
+            opacity: 0.85;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transform: rotate(-2deg);
+            z-index: 20;
+        }
+        .washi-tape-sticker::before, .washi-tape-sticker::after {
+            content: '';
+            position: absolute;
+            top: 0; width: 6px; height: 100%;
+            background: #fffdf6;
+        }
+        .washi-tape-sticker::before { left: -3px; transform: rotate(-5deg); clip-path: polygon(0% 0%, 100% 0%, 50% 50%, 100% 100%, 0% 100%); }
+        .washi-tape-sticker::after { right: -3px; transform: rotate(5deg); clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 50% 50%); }
+
+        /* Polaroid Photo Canvas Frame */
+        .polaroid-frame-element {
+            background: white;
+            padding: 14px 14px 35px 14px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+            border: 1px solid #f0edf5;
+            transform: rotate(-2deg);
+            margin: 0 auto 24px;
+            width: 200px;
+            position: relative;
+        }
+        .polaroid-frame-element img {
+            width: 100%;
+            height: 175px;
+            object-fit: cover;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .polaroid-frame-element::after {
+            content: '♥️';
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.1rem;
+            color: var(--pink-deep);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            color: var(--pink-deep);
+            margin-bottom: 14px;
+            line-height: 1.3;
+        }
+        h1 { font-size: 1.9rem; text-shadow: 1px 1px 0px #fff; }
+        h2 { font-size: 1.5rem; }
+
+        .handwritten-prose {
+            font-family: 'Caveat', cursive;
+            font-size: 1.55rem;
+            line-height: 1.4;
+            font-weight: 700;
+            color: #5d5061;
+            margin-bottom: 22px;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-top: 15px;
+        }
+
+        .btn {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            padding: 12px 30px;
+            font-size: 1.05rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 117, 151, 0.18);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease;
+            position: relative;
+        }
+        .btn:active { transform: scale(0.94); }
+
+        .btn-pink {
+            background: linear-gradient(135deg, var(--pink-deep), #ff9eb5);
+            color: white;
+        }
+        .btn-pink:hover { background: linear-gradient(135deg, var(--pink-hover), var(--pink-deep)); }
+        .btn-pastel {
+            background: #fff;
+            color: #8c7e91;
+            border: 2px dashed var(--pink-pastel);
+        }
+
+        /* --- SCRAPBOOK SCOREBOARD BOARD --- */
+        #game-layout-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 350px;
+            background: #fffdf9;
+            padding: 16px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 2px solid #f4efe6;
+            position: relative;
+        }
+        .score-row-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--pink-deep);
+            margin-bottom: 12px;
+        }
+        .combo-badge {
+            background: #ffeef2;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 2px solid var(--pink-pastel);
+            transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.5);
+        }
+        .combo-badge.pulse-combo {
+            transform: scale(1.25) rotate(5deg);
+            background: #fff0f3;
+            border-color: var(--pink-deep);
+        }
+        .game-canvas-wrapper { position: relative; width: 100%; }
+        #game-canvas {
+            background: #fdfbf7;
+            border: 3px dashed var(--pink-pastel);
+            border-radius: 20px;
+            cursor: none;
+            touch-action: none;
+            display: block;
+        }
+        .floating-toast-node {
+            position: absolute;
+            font-family: 'Caveat', cursive;
+            font-weight: bold;
+            color: var(--pink-deep);
+            font-size: 1.6rem;
+            pointer-events: none;
+            animation: toastFloatUpEffect 0.75s ease-out forwards;
+            white-space: nowrap;
+            z-index: 1000;
+        }
+        @keyframes toastFloatUpEffect {
+            0% { transform: translateY(0) scale(0.8); opacity: 0; }
+            30% { opacity: 1; transform: translateY(-15px) scale(1.2); }
+            100% { transform: translateY(-50px) scale(0.9); opacity: 0; }
+        }
+
+        /* --- FACT SECTION UPGRADE (DECK SYSTEM) --- */
+        .card-deck-stage {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            margin: 20px auto 25px;
+            perspective: 1000px;
+        }
+        .deck-item-card {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: scale(0.88) translateY(20px);
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .deck-item-card.item-active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+            z-index: 10;
+        }
+        .deck-item-card.item-swiped {
+            opacity: 0;
+            transform: translateX(-150%) rotate(-15deg);
+            pointer-events: none;
+        }
+
+        /* Individual Specific Scrapbook Backings */
+        .style-polaroid { background: #ffffff; border: 1px solid #eee; border-bottom: 40px solid #ffffff; box-shadow: 0 8px 20px rgba(0,0,0,0.06); transform: rotate(-1deg); }
+        .style-sticky { background: #fffb96; border-left: 5px solid #ebd44d; box-shadow: 5px 5px 15px rgba(0,0,0,0.04); transform: rotate(2deg); color: #433d16 !important; }
+        .style-journal { background: #faf5ef; background-image: linear-gradient(#e1dcd6 1px, transparent 1px); background-size: 100% 24px; border: 1px solid #dcd6cd; border-left: 12px solid #8c7e91; text-align: left !important; padding-left: 30px; }
+        .style-scrapbook { background: #e8f0fe; border: 3px dashed #b1cbfd; border-radius: 16px; transform: rotate(-2deg); }
+
+        /* --- QUIZ SCRAPBOARD BOARD & OPTION STICKERS --- */
+        .quiz-option-node {
+            background: #ffffff;
+            border: 1px solid #ebdcd0;
+            border-bottom: 3px solid #d3c4b8;
+            border-radius: 4px;
+            padding: 14px 18px;
+            margin: 12px 0;
+            width: 100%;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            text-align: left;
+            position: relative;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .quiz-option-node:hover {
+            transform: translateY(-2px) rotate(0.5deg);
+            background-color: #fffdf9;
+        }
+        
+        /* Cat Paw Stamp Overlay Structure */
+        .quiz-option-node::after {
+            content: '🐾';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%) scale(0);
+            font-size: 1.8rem;
+            opacity: 0;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.5), opacity 0.2s ease;
+            color: var(--pink-deep);
+            pointer-events: none;
+        }
+        .quiz-option-node.stamped-state::after {
+            transform: translateY(-50%) scale(1.2) rotate(-15deg);
+            opacity: 0.85;
+        }
+
+        .quiz-option-node.status-right { background: #edf9f4; border-color: #a3e2c9; border-bottom-color: #72cfa9; }
+        .quiz-option-node.status-wrong { background: #fff0f2; border-color: #ffccd5; border-bottom-color: #ff99ab; }
+
+        .quiz-log-banner {
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--pink-deep);
+            min-height: 30px;
+            margin-top: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* --- HAPPINESS PACK UP --- */
+        .kit-flex-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin: 20px 0;
+        }
+        .kit-card-element {
+            background: white;
+            padding: 10px 10px 24px 10px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.3);
+            transform: rotate(calc(Math.random() * 4deg - 2deg));
+        }
+        .kit-card-element:hover { transform: translateY(-5px) rotate(1deg); }
+        .kit-card-element img {
+            width: 100%;
+            height: 115px;
+            object-fit: cover;
+            border: 1px solid #f5f5f5;
+            margin-bottom: 8px;
+        }
+        .kit-card-element label {
+            font-family: 'Caveat', cursive;
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-dark);
+            display: block;
+            cursor: pointer;
+        }
+
+        /* --- MECHANICAL INTERACTIVE ENVELOPE --- */
+        .envelope-shell-container {
+            position: relative;
+            width: 280px;
+            height: 180px;
+            background: #ffcbd5;
+            border-radius: 0 0 16px 16px;
+            cursor: pointer;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+            margin: 40px auto 20px;
+            transform-style: preserve-3d;
+        }
+        .envelope-shell-flap {
+            position: absolute;
+            top: 0; left: 0; width: 0; height: 0;
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
+            border-top: 100px solid #ffb7b2;
+            transform-origin: top;
+            transition: transform 0.4s ease;
+            z-index: 3;
+        }
+        .envelope-shell-container.state-open .envelope-shell-flap { transform: rotateX(180deg); z-index: 1; }
+        .envelope-shell-letter {
+            position: absolute;
+            top: 10px; left: 10px; right: 10px;
+            background: #fffdf6;
+            height: 150px;
+            border-radius: 8px;
+            padding: 16px;
+            z-index: 2;
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.02);
+        }
+        .envelope-shell-container.state-open .envelope-shell-letter {
+            transform: translateY(-115px) scale(1.05);
+            height: auto;
+            min-height: 150px;
+            z-index: 5;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        /* --- LOADER PANEL SYSTEMS --- */
+        .progress-rail {
+            width: 85%;
+            height: 14px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 20px;
+            margin: 20px auto;
+            overflow: hidden;
+            border: 2px solid var(--pink-pastel);
+        }
+        .progress-fill-bar {
+            width: 0%; height: 100%;
+            background: linear-gradient(90deg, var(--pink-deep), var(--pink-pastel));
+            border-radius: 20px;
+            transition: width 0.05s linear;
+        }
+        .loader-polaroid-capsule {
+            background: white;
+            padding: 12px 12px 28px 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+            width: 170px;
+            margin: 20px auto;
+            opacity: 0;
+            transform: scale(0.4) rotate(-10deg);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none;
+        }
+        .loader-polaroid-capsule.state-visible {
+            display: block;
+            transform: scale(1) rotate(4deg);
+            opacity: 1;
+            animation: polaroidPopEffect 0.5s ease-out forwards;
+        }
+        @keyframes polaroidPopEffect {
+            0% { transform: scale(0.4) rotate(-10deg); opacity: 0; }
+            70% { transform: scale(1.1) rotate(6deg); }
+            100% { transform: scale(1) rotate(4deg); opacity: 1; }
+        }
+        .loader-polaroid-capsule img { width: 100%; height: 150px; object-fit: cover; }
+        .loader-polaroid-text { font-family: 'Caveat', cursive; font-size: 1.2rem; font-weight: bold; margin-top: 8px; color: var(--pink-deep); }
+
+        /* --- FINAL REVEAL STACKING ARRANGEMENT --- */
+        .finale-scroller-pod {
+            width: 100%;
+            max-width: 410px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .treasured-polaroid-photo {
+            background: #ffffff;
+            padding: 16px 16px 45px 16px;
+            box-shadow: 0 15px 40px rgba(255, 117, 151, 0.25);
+            border: 1px solid #f7f3f9;
+            transform: scale(0.7) rotate(-5deg);
+            opacity: 0;
+            transition: all 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 250px;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 50;
+            display: none;
+        }
+        .treasured-polaroid-photo.state-active {
+            display: block;
+            opacity: 1;
+            transform: scale(1) rotate(-2deg);
+            animation: softGlowPulse 3s infinite alternate;
+        }
+        @keyframes softGlowPulse {
+            0% { box-shadow: 0 15px 35px rgba(255, 117, 151, 0.2); }
+            100% { box-shadow: 0 15px 45px rgba(255, 117, 151, 0.45), 0 0 15px rgba(255,183,178,0.3); }
+        }
+        .treasured-polaroid-photo img { width: 100%; height: 220px; object-fit: cover; }
+        
+        .scrapbook-notes-stack {
+            position: relative;
+            width: 100%;
+            min-height: 180px;
+            margin-top: 10px;
+        }
+        .handwritten-stack-note {
+            background: #fffdf2;
+            border-left: 6px solid var(--pink-pastel);
+            box-shadow: 2px 8px 20px rgba(0,0,0,0.05);
+            padding: 16px 20px;
+            border-radius: 4px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #4a3e4d;
+            text-align: center;
+            line-height: 1.4;
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.2), z-index 0.1s;
+            display: none;
+        }
+        .handwritten-stack-note.state-active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(calc(var(--stack-rot, 0) * 1deg));
+        }
+        .handwritten-stack-note.state-buried {
+            display: block;
+            opacity: 0.45;
+            transform: translateY(-10px) scale(0.96) rotate(calc(var(--stack-rot, 0) * 1deg));
+        }
+
+        /* Shake Core Utility */
+        .shake-widget-anim { animation: shakeSystemNode 0.3s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shakeSystemNode {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(3px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scrapbook-bg-layer" id="master-parallax-bg">
+        <div class="bg-newspaper-texture"></div>
+        <div class="bg-torn-paper-pink"></div>
+        <div class="bg-torn-paper-grid"></div>
+        <div class="bg-handwritten-doodle" style="top:15%; right:15%;">✨</div>
+        <div class="bg-handwritten-doodle" style="bottom:25%; left:10%;">smile 🌸</div>
+        <div class="bg-handwritten-doodle" style="top:45%; left:40%; font-size:1.5rem; opacity:0.2;">hello kitty vibes</div>
+        <div class="bg-handwritten-doodle" style="bottom:8%; right:30%;">⭐️</div>
+    </div>
+    <div class="film-grain-overlay"></div>
+    <div id="particle-canvas-layer"></div>
+
+    <div id="view-opening" class="view-stage active-stage">
+        <div class="scrapbook-note-card">
+            <div class="washi-tape-sticker"></div>
+            <div class="polaroid-frame-element">
+                <img src="1000022258.jpg" alt="Opening Rose Kitten">
+            </div>
+            <h1>Hey 🙂</h1>
+            <div class="handwritten-prose" style="text-align: left; font-size: 1.45rem; padding: 0 5px;">
+                I know your day actually went pretty well today.<br><br>
+                Originally I made this website because I thought maybe your day would go badly and I wanted to cheer you up.<br><br>
+                But then I heard your day went well...<br><br>
+                And somehow that made me want to make something even better.<br><br>
+                So I made this little corner of the internet for you. 🌸🤍
+            </div>
+            <div class="button-row">
+                <button class="btn btn-pink" onclick="acceptOpeningRoute(event)">YES 💖</button>
+                <button class="btn btn-pastel" onclick="rejectOpeningRoute(event)">NO 😶</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-no-route" class="view-stage">
+        <div class="scrapbook-note-card" id="no-route-card-widget" style="background:#fff0f2;">
+            <div class="washi-tape-sticker" style="background: repeating-linear-gradient(45deg, #ff9eb5, #ff9eb5 10px, #ff7597 10px, #ff7597 20px);"></div>
+            <div class="polaroid-frame-element" style="transform: rotate(3deg);">
+                <img id="no-route-avatar-img" src="1000022261.jpg" alt="Gun Cat">
+            </div>
+            <h2 id="no-route-heading" style="color: #ef476f;">The Cat Council is disappointed.</h2>
+            <div id="no-route-subtext" class="handwritten-prose" style="font-size:1.35rem; margin-bottom:0;"></div>
+        </div>
+    </div>
+
+    <div id="view-instructions" class="view-stage">
+        <div class="scrapbook-note-card">
+            <div class="washi-tape-sticker"></div>
+            <h2>🌸 Sakura Catch Game 🌸</h2>
+            <p style="font-size:0.95rem; font-weight:600;">Slide the paddle left and right to capture falling tokens!</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 16px 0; text-align: left; font-family:'Fredoka', sans-serif; font-size: 0.85rem; font-weight: 600;">
+                <div style="background:#fffdf0; padding:8px; border-radius:6px; border:1px dashed #f3d19e;">💖 Heart (+1)</div>
+                <div style="background:#fff5f7; padding:8px; border-radius:6px; border:1px dashed #ffa6c9;">🌸 Sakura (+2)</div>
+                <div style="background:#f0f7ff; padding:8px; border-radius:6px; border:1px dashed #9ec0ff;">⭐ Star (+3)</div>
+                <div style="background:#fffcf0; padding:8px; border-radius:6px; border:1px dashed #ebd44d;">✨ Gold (+4)</div>
+                <div style="background:#f6f6f6; padding:8px; border-radius:6px; color:#ef476f;">☁️ Cloud (-2)</div>
+                <div style="background:#fff0f2; padding:8px; border-radius:6px; color:#ef476f;">💔 Broken (-3)</div>
+            </div>
+
+            <div class="handwritten-prose" style="color: var(--pink-deep); margin-bottom:15px;">Reach 15 points to win! ✨</div>
+            <button class="btn btn-pink" style="width:100%;" onclick="navigateToStage('view-game')">Start Game 🎉</button>
+        </div>
+    </div>
+
+    <div id="view-game" class="view-stage">
+        <div id="game-layout-container">
+            <div class="score-row-display">
+                <div>Points: <span id="game-score-lbl">0</span>/15</div>
+                <div class="combo-badge" id="game-combo-pod">Streak: <span id="game-combo-lbl">0</span></div>
+            </div>
+            <div class="game-canvas-wrapper" id="game-canvas-relative-anchor">
+                <canvas id="game-canvas" width="318" height="360"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-victory" class="view-stage">
+        <div class="scrapbook-note-card">
+            <div class="washi-tape-sticker"></div>
+            <div class="polaroid-frame-element" style="transform: rotate(-3deg);">
+                <img src="1000022264.jpg" alt="Bouquet Cat">
+            </div>
+            <h1>YAYYY 🌸</h1>
+            <h2>You did it!</h2>
+            <div class="handwritten-prose" style="color: var(--pink-deep); font-size: 1.8rem;">"The petals knew you'd win."</div>
+            <button class="btn btn-pink" style="width:100%;" onclick="navigateToStage('view-wholesome')">Continue 🐾</button>
+        </div>
+    </div>
+
+    <div id="view-wholesome" class="view-stage">
+        <div class="scrapbook-note-card" style="background:#fdfcf7;">
+            <div class="washi-tape-sticker"></div>
+            <div class="polaroid-frame-element" style="transform: rotate(4deg);">
+                <img src="1000022262.jpg" alt="Flower Offering Cat">
+            </div>
+            <div class="handwritten-prose" style="font-size: 1.8rem; line-height: 1.5; color: #4a3e4d; padding: 10px 0;">
+                "Whenever you smile...<br><br>for some reason...<br><br>it makes me a little happier too. 🌷"
+            </div>
+            <button class="btn btn-pink" style="width:100%;" onclick="navigateToStage('view-facts')">Next 🌸</button>
+        </div>
+    </div>
+
+    <div id="view-facts" class="view-stage">
+        <div class="scrapbook-note-card" style="background:transparent; box-shadow:none; border:none; padding:0;">
+            <h2 style="text-align:center; margin-bottom:5px;">✨ Scrapbook Snippets ✨</h2>
+            
+            <div class="card-deck-stage" id="facts-deck-stage-hook">
+                <div class="deck-item-card style-polaroid item-active">
+                    <span style="font-size: 2.5rem; margin-bottom: 8px;">🦖💖</span>
+                    <div class="handwritten-prose" style="margin-bottom:0; text-align:center; font-size:1.6rem;">If you were a dinosaur,<br>you'd be a<br><span style="color:var(--pink-deep);">Gorgeousaurus</span>.</div>
+                </div>
+                <div class="deck-item-card style-sticky">
+                    <span style="font-size: 2.3rem; margin-bottom: 6px;">🐱👁️</span>
+                    <div class="handwritten-prose" style="margin-bottom:0; text-align:center; font-size:1.45rem; color:#433d16;"><strong>Fun fact:</strong><br><br>You are currently being observed by the Cat Council.<br>Please continue being awesome.</div>
+                </div>
+                <div class="deck-item-card style-journal">
+                    <span style="font-size: 2.2rem; margin-bottom: 5px; display:block; text-align:center;">💎</span>
+                    <div class="handwritten-prose" style="margin-bottom:0; font-size:1.4rem; color:#524656; padding-top:4px;">Giving you compliments feels a little unfair... because there isn't much competition.</div>
+                </div>
+                <div class="deck-item-card style-scrapbook">
+                    <span style="font-size: 2.5rem; margin-bottom: 8px;">🌸</span>
+                    <div class="handwritten-prose" style="margin-bottom:0; text-align:center; font-size:1.5rem; color:#2c3e6b;">Some people make places prettier.<br><br>You somehow make entire days prettier.</div>
+                </div>
+            </div>
+
+            <button class="btn btn-pink" id="deck-action-trigger" style="width:100%;" onclick="executeFactDeckSwipeAnimation()">Next Piece 🐾</button>
+        </div>
+    </div>
+
+    <div id="view-quiz-secret" class="view-stage">
+        <div class="scrapbook-note-card" id="quiz-card-secret" style="border-left-color:#ffd166;">
+            <div class="washi-tape-sticker" style="background: repeating-linear-gradient(45deg, #ffe066, #ffe066 10px, #f4c430 10px, #f4c430 20px);"></div>
+            <h2>🤫 SECRET QUESTION</h2>
+            <p style="font-family:'Fredoka', sans-serif; font-weight:700; margin-bottom:15px; font-size:1.1rem;">Do you think you're awesome?</p>
+            
+            <button class="quiz-option-node" onclick="evaluateQuizResponse(this, 'secret', 'A')">A) Yes 😎</button>
+            <button class="quiz-option-node" id="quiz-btn-secret-b" onclick="evaluateQuizResponse(this, 'secret', 'B')">B) No 😶</button>
+            
+            <div class="quiz-log-banner" id="quiz-logger-secret"></div>
+        </div>
+    </div>
+
+    <div id="view-quiz-1" class="view-stage">
+        <div class="scrapbook-note-card">
+            <div class="washi-tape-sticker"></div>
+            <h2>🌸 QUIZ 1</h2>
+            <h3 style="font-size:1.05rem; color:#7a6d80; font-weight:500; margin-bottom:12px;">Cat Council Background Check</h3>
+            <div class="handwritten-prose" style="font-size:1.35rem; background:rgba(255,255,255,0.6); padding:8px; border-radius:6px; margin-bottom:14px;">Before we continue... The Cat Council needs to verify your identity.</div>
+            <p style="font-family:'Fredoka', sans-serif; font-weight:700; margin-bottom:10px; font-size:1.05rem; text-align:left;">Question: What are you most likely to do?</p>
+            
+            <button class="quiz-option-node" onclick="evaluateQuizResponse(this, 1, 'A')">A) Be nice to people 😊</button>
+            <button class="quiz-option-node" onclick="evaluateQuizResponse(this, 1, 'B')">B) Make someone's day better 🌷</button>
+            <button class="quiz-option-node" onclick="evaluateQuizResponse(this, 1, 'C')">C) Accidentally be adorable 😶</button>
+            <button class="quiz-option-node" onclick="evaluateQuizResponse(this, 1, 'D')">D) All of the above</button>
+            
+            <div class="quiz-log-banner" id="quiz-logger-1"></div>
+        </div>
+    </div>
+
+    <div id="view-quiz-2" class="view-stage">
+        <div class="scrapbook-note-card">
+            <div class="washi-tape-sticker"></div>
+            <h2>🐱 QUIZ 2</h2>
+            <h3 style="font-size:1.05rem; color:#7a6d80; font-weight:500; margin-bottom:12px;">Cat Council Court</h3>
+            <p style="font-family:'Fredoka', sans-serif; font-weight:700; margin-bottom:10px; font-size:1.05rem; text-align:left;">You have been officially accused of:</p>
+            
+            <button class="quiz-option-node" onclick="evaluateQuizResponse(this, 2, 'A')">A) Being too nice 🌷</button>
+            <button class="quiz-option-node" onclick="evaluateQuizResponse(this, 2, 'B')">B) Being too cute 🌸</button>
+            <button class="quiz-option-node" onclick="evaluateQuizResponse(this, 2, 'C')">C) Making people smile 💖</button>
+            <button class="quiz-option-node" onclick="evaluateQuizResponse(this, 2, 'D')">D) All of the above</button>
+            
+            <div class="quiz-log-banner" id="quiz-logger-2"></div>
+        </div>
+    </div>
+
+    <div id="view-quiz-boss" class="view-stage">
+        <div class="scrapbook-note-card" id="quiz-card-boss">
+            <div class="washi-tape-sticker"></div>
+            <h2>🌸 FINAL BOSS QUESTION</h2>
+            <p style="font-size:0.9rem; font-style:italic; color:#7a6d80; margin-bottom:10px;">Loading final report...</p>
+            <p style="font-family:'Fredoka', sans-serif; font-weight:700; margin-bottom:12px; font-size:1.05rem; text-align:left;">What was the best part of this website?</p>
+            
+            <button class="quiz-option-node" onclick="evaluateQuizResponse(this, 'boss', 'A')">A) The game 🎮</button>
+            <button class="quiz-option-node" onclick="evaluateQuizResponse(this, 'boss', 'B')">B) The cats 🐱</button>
+            <button class="quiz-option-node" onclick="evaluateQuizResponse(this, 'boss', 'C')">C) The animations ✨</button>
+            <button class="quiz-option-node" onclick="evaluateQuizResponse(this, 'boss', 'D')">D) The person reading it 💖</button>
+            
+            <div class="quiz-log-banner" id="quiz-logger-boss"></div>
+        </div>
+    </div>
+
+    <div id="view-secret" class="view-stage">
+        <div class="scrapbook-note-card" style="background:#fffef9;">
+            <div class="washi-tape-sticker"></div>
+            <div class="polaroid-frame-element" style="transform: rotate(-4deg);">
+                <img src="1000022259.jpg" alt="Tulip Cat">
+            </div>
+            <h2>Just for you... 🤍</h2>
+            <div class="handwritten-prose" style="text-align: left; font-size: 1.5rem; background: rgba(254,243,245,0.7); padding: 18px; border-radius: 6px; line-height: 1.4; color: #d90429; margin-bottom: 18px; border-left: 4px solid var(--pink-deep);">
+                I was going to write something impressive here...<br><br>
+                But then I remembered you're already the most impressive thing on this page.<br><br>
+                This website was supposed to cheer you up. Instead, it got distracted admiring you.
+            </div>
+            <button class="btn btn-pink" style="width:100%;" onclick="navigateToStage('view-kit')">Open Happiness Kit 🌸</button>
+        </div>
+    </div>
+
+    <div id="view-kit" class="view-stage">
+        <div class="scrapbook-note-card">
+            <div class="washi-tape-sticker"></div>
+            <h2>Emergency Happiness Kit 🌸</h2>
+            <p style="font-size:0.9rem; margin-bottom:5px; font-weight:600;">Tap items to unpack interactive vibes!</p>
+            
+            <div class="kit-flex-grid">
+                <div class="kit-card-element" onclick="triggerKitBlastEffect(event)">
+                    <img src="1000022339.jpg" alt="Hello Kitty Flowers">
+                    <label>Professional flower delivery service 🌸</label>
+                </div>
+                <div class="kit-card-element" onclick="triggerKitBlastEffect(event)">
+                    <img src="1000022274.jpg" alt="Dog With Flower">
+                    <label>I found this flower. It is now your flower. 🌹</label>
+                </div>
+            </div>
+
+            <button class="btn btn-pink" style="width:100%;" onclick="navigateToStage('view-envelope')">Open Letter 💌</button>
+        </div>
+    </div>
+
+    <div id="view-envelope" class="view-stage">
+        <div class="scrapbook-note-card" id="envelope-interactive-card">
+            <div class="washi-tape-sticker"></div>
+            <h2>A letter left for you... ✉️</h2>
+            <p style="font-weight:600; font-size:0.95rem;">Tap the envelope flap to pull out the note</p>
+            
+            <div class="envelope-shell-container" id="envelope-interactive-shell" onclick="openMechanicalLetterCard(this)">
+                <div class="envelope-shell-flap"></div>
+                <div class="envelope-shell-letter">
+                    <div class="handwritten-prose" style="margin:0; font-size:1.4rem; text-align:center; color:#ef476f;">I know this probably isn't enough to magically improve a day. But if it made you smile even once... I'd call that a success. 🌸</div>
+                </div>
+            </div>
+
+            <button class="btn btn-pink" id="envelope-action-btn" style="width:100%; display:none; margin-top:25px;" onclick="initiateSystemLoaderSequence()">Continue 🌟</button>
+        </div>
+
+        <div class="scrapbook-note-card" id="system-universe-loader" style="display:none; background:#fffdfa;">
+            <div class="washi-tape-sticker"></div>
+            <h2 id="loader-status-string" style="font-family:'Fredoka', sans-serif; transition: opacity 0.2s;">Scanning universe...</h2>
+            
+            <div class="loader-polaroid-capsule" id="loader-dog-avatar-pod">
+                <img src="1000022274.jpg" alt="Dog With Flower Asset">
+                <div class="loader-polaroid-text">🌹 Special Delivery Has Arrived 🐶</div>
+            </div>
+
+            <div class="progress-rail">
+                <div class="progress-fill-bar" id="loader-rail-fill"></div>
+            </div>
+            <p style="font-family:'Fredoka', sans-serif; font-weight:700; color:var(--pink-deep); font-size:1.2rem;" id="loader-percentage-counter">0%</p>
+        </div>
+    </div>
+
+    <div id="view-finale" class="view-stage">
+        <div class="finale-scroller-pod">
+            <div class="treasured-polaroid-photo" id="finale-portrait-frame">
+                <img src="1000022265.jpg" alt="Final Reveal Portrait">
+            </div>
+
+            <div class="scrapbook-notes-stack" id="notes-stack-container">
+                <div class="handwritten-stack-note" id="reveal-node-0" style="--stack-rot: -2">"And then I remembered who's going to open this page... 🤍"</div>
+                <div class="handwritten-stack-note" id="reveal-node-1" style="--stack-rot: 3">"I spent way too much time trying to find the prettiest thing to put on this page."</div>
+                <div class="handwritten-stack-note" id="reveal-node-2" style="--stack-rot: -1">"Then I remembered who's going to open it."</div>
+                <div class="handwritten-stack-note" id="reveal-node-3" style="--stack-rot: 2">"The prettiest thing was never on this page."</div>
+                <div class="handwritten-stack-note" id="reveal-node-4" style="--stack-rot: -3">"It was always the person reading it. 🌷💖"</div>
+                <div class="handwritten-stack-note" id="reveal-node-5" style="--stack-rot: 1">"🤍 Take care of yourself, okay?"</div>
+                <div class="handwritten-stack-note" id="reveal-node-6" style="--stack-rot: -1">"🌸 The world feels a little nicer when you're in it. 💖"</div>
+            </div>
+
+            <div class="button-row" id="finale-action-bar" style="opacity:0; pointer-events:none; transition: opacity 0.5s ease; margin-top:20px; width:100%; z-index:100;">
+                <button class="btn btn-pink" style="width:100%; background: linear-gradient(135deg, #bae1f6, #ffb7b2); color: var(--text-dark); font-family:'Fredoka', sans-serif;" onclick="copyFinaleTextToClipboard(this)">📋 Copy Message</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvasLayer = document.getElementById('particle-canvas-layer');
+        const backgroundParallax = document.getElementById('master-parallax-bg');
+        const visualTokens = ["🌸", "💖", "✨", "⭐", "🌷", "🎀", "🎈", "🤍"];
+        
+        let dynamicStageRoute = 'view-opening';
+        let factCardIndex = 0;
+
+        // --- SUBTLE MOUSE PARALLAX TRACKING ---
+        window.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.015;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.015;
+            backgroundParallax.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.02)`;
+        });
+
+        // --- PARTICLE AMBIENT SCATTER SYSTEM ---
+        function runParticleAmbientLoop() {
+            setInterval(createAmbientFallingParticle, 280);
+        }
+
+        function createAmbientFallingParticle() {
+            const token = visualTokens[Math.floor(Math.random() * visualTokens.length)];
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.pointerEvents = 'none';
+            particle.style.willChange = 'transform, opacity';
+            particle.innerText = token;
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = '-40px';
+            particle.style.fontSize = (14 + Math.random() * 24) + 'px';
+            particle.style.zIndex = '5';
+            
+            const randomRotation = (Math.random() * 360 + 120) + 'deg';
+            const duration = 5.0 + Math.random() * 5.0;
+            
+            particle.style.transition = `transform ${duration}s linear, opacity ${duration}s ease-in-out`;
+            canvasLayer.appendChild(particle);
+
+            setTimeout(() => {
+                particle.style.transform = `translateY(${window.innerHeight + 80}px) rotate(${randomRotation})`;
+            }, 40);
+            
+            setTimeout(() => { particle.remove(); }, duration * 1000);
+        }
+
+        function triggerBurstParticleExplosion(x, y, count = 14) {
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.pointerEvents = 'none';
+                particle.style.willChange = 'transform, opacity';
+                particle.innerText = visualTokens[Math.floor(Math.random() * visualTokens.length)];
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.fontSize = (16 + Math.random() * 20) + 'px';
+                particle.style.zIndex = '2000';
+                particle.style.transition = `transform 0.85s cubic-bezier(0.1, 0.8, 0.3, 1), opacity 0.85s ease-out`;
+
+                canvasLayer.appendChild(particle);
+
+                const tx = (Math.random() * 240 - 120);
+                const ty = (Math.random() * 240 - 120);
+                const rot = Math.random() * 360;
+
+                setTimeout(() => {
+                    particle.style.transform = `translate(${tx}px, ${ty}px) scale(0.4) rotate(${rot}deg)`;
+                    particle.style.opacity = '0';
+                }, 20);
+
+                setTimeout(() => { particle.remove(); }, 900);
+            }
+        }
+
+        window.addEventListener('pointerdown', (e) => {
+            if (dynamicStageRoute === 'view-game') return;
+            triggerBurstParticleExplosion(e.clientX, e.clientY, 6);
+        });
+
+        // --- SCRAPBOOK PANEL NAVIGATION ---
+        function navigateToStage(targetId) {
+            const current = document.getElementById(dynamicStageRoute);
+            if (current) current.classList.remove('active-stage');
+            
+            dynamicStageRoute = targetId;
+            const target = document.getElementById(targetId);
+            
+            setTimeout(() => {
+                if (target) target.classList.add('active-stage');
+                if (targetId === 'view-game') initiateCatchGameSystem();
+            }, 100);
+            
+            triggerBurstParticleExplosion(window.innerWidth / 2, window.innerHeight / 2, 12);
+        }
+
+        // --- ENTRY POINT INTERACTION ROUTING ---
+        function acceptOpeningRoute(e) {
+            const button = e.currentTarget;
+            button.style.transform = 'scale(14)';
+            button.style.opacity = '0';
+            setTimeout(() => { navigateToStage('view-instructions'); }, 1200);
+        }
+
+        function rejectOpeningRoute(e) {
+            navigateToStage('view-no-route');
+            setTimeout(executeNoOptionSubroutine, 500);
+        }
+
+        function executeNoOptionSubroutine() {
+            const panel = document.getElementById('no-route-card-widget');
+            const pic = document.getElementById('no-route-avatar-img');
+            const h2 = document.getElementById('no-route-heading');
+            const sub = document.getElementById('no-route-subtext');
+
+            setTimeout(() => {
+                panel.classList.add('shake-widget-anim');
+                pic.src = "1000022217.jpg";
+                h2.innerText = "The NO button was decorative.";
+                sub.innerHTML = `The council has reviewed your decision and rejected it.`;
+                
+                setTimeout(() => panel.classList.remove('shake-widget-anim'), 300);
+                setTimeout(() => { navigateToStage('view-instructions'); }, 3500);
+            }, 2000);
+        }
+
+        // --- RECREATIONAL FRUIT CATCH ENGINE ---
+        function initiateCatchGameSystem() {
+            const canvas = document.getElementById('game-canvas');
+            const ctx = canvas.getContext('2d');
+            const scoreLabel = document.getElementById('game-score-lbl');
+            const comboLabel = document.getElementById('game-combo-lbl');
+            const comboPod = document.getElementById('game-combo-pod');
+            const wrapper = document.getElementById('game-canvas-relative-anchor');
+
+            let aggregateScore = 0;
+            let currentComboStreak = 0;
+            let paddle = { x: 114, y: 335, width: 90, height: 16 };
+            let activeGifts = [];
+            let activeGameLoop = true;
+            let loopTimer;
+
+            function repositionPaddle(clientX) {
+                const box = canvas.getBoundingClientRect();
+                const relativeX = clientX - box.left;
+                paddle.x = Math.min(Math.max(0, relativeX - paddle.width / 2), canvas.width - paddle.width);
+            }
+
+            canvas.addEventListener('mousemove', (e) => repositionPaddle(e.clientX));
+            canvas.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 0) repositionPaddle(e.touches[0].clientX);
+            }, { passive: true });
+
+            const lootTable = [
+                { symbol: '💖', val: 1, penalty: false },
+                { symbol: '🌸', val: 2, penalty: false },
+                { symbol: '⭐', val: 3, penalty: false },
+                { symbol: '✨', val: 4, penalty: false },
+                { symbol: '☁️', val: -2, penalty: true },
+                { symbol: '💔', val: -3, penalty: true }
+            ];
+
+            function spawnToastIndicator(x, y, label) {
+                const element = document.createElement('div');
+                element.className = 'floating-toast-node';
+                element.innerText = label;
+                element.style.left = x + 'px';
+                element.style.top = y + 'px';
+                wrapper.appendChild(element);
+                setTimeout(() => element.remove(), 750);
+            }
+
+            function manageGiftDistribution() {
+                if (!activeGameLoop) return;
+                const roll = Math.random();
+                let chosen;
+                
+                if (roll > 0.88) chosen = lootTable[3];
+                else if (roll > 0.72) chosen = lootTable[2];
+                else if (roll > 0.52) chosen = lootTable[1];
+                else if (roll > 0.30) chosen = lootTable[0];
+                else if (roll > 0.15) chosen = lootTable[4];
+                else chosen = lootTable[5];
+
+                activeGifts.push({
+                    x: 20 + Math.random() * (canvas.width - 40),
+                    y: -20,
+                    item: chosen,
+                    speed: 2.2 + Math.random() * 2.5,
+                    angle: Math.random() * Math.PI
+                });
+
+                loopTimer = setTimeout(manageGiftDistribution, 500 + Math.random() * 350);
+            }
+            manageGiftDistribution();
+
+            function frameRenderCycle() {
+                if (!activeGameLoop) return;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Paddle Blueprint Accent
+                ctx.fillStyle = "var(--pink-deep)";
+                ctx.beginPath();
+                ctx.roundRect(paddle.x, paddle.y, paddle.width, paddle.height, 8);
+                ctx.fill();
+                ctx.strokeStyle = "#fff";
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // Token Matrix Tracking
+                for (let i = activeGifts.length - 1; i >= 0; i--) {
+                    let gift = activeGifts[i];
+                    gift.y += gift.speed;
+                    gift.angle += 0.02;
+
+                    ctx.save();
+                    ctx.translate(gift.x, gift.y);
+                    ctx.rotate(gift.angle);
+                    ctx.font = "24px Arial";
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
+                    ctx.fillText(gift.item.symbol, 0, 0);
+                    ctx.restore();
+
+                    // Collision Evaluator
+                    if (gift.y >= paddle.y - 10 && gift.y <= paddle.y + paddle.height + 5 &&
+                        gift.x >= paddle.x - 5 && gift.x <= paddle.x + paddle.width + 5) {
+                        
+                        const itemData = gift.item;
+                        
+                        if (itemData.penalty) {
+                            currentComboStreak = 0;
+                            aggregateScore = Math.max(0, aggregateScore + itemData.val);
+                            canvas.classList.add('shake-widget-anim');
+                            setTimeout(() => canvas.classList.remove('shake-widget-anim'), 200);
+                            spawnToastIndicator(gift.x, paddle.y - 15, `${itemData.val} ☁️`);
+                        } else {
+                            currentComboStreak++;
+                            aggregateScore += itemData.val;
+                            
+                            if (currentComboStreak >= 3) {
+                                comboPod.classList.add('pulse-combo');
+                                setTimeout(() => comboPod.classList.remove('pulse-combo'), 150);
+                                spawnToastIndicator(gift.x, paddle.y - 20, `Combo! +${itemData.val} 🔥`);
+                            } else {
+                                spawnToastIndicator(gift.x, paddle.y - 15, `+${itemData.val} ${itemData.symbol}`);
+                            }
+                        }
+
+                        scoreLabel.innerText = aggregateScore;
+                        comboLabel.innerText = currentComboStreak;
+
+                        const bounds = canvas.getBoundingClientRect();
+                        triggerBurstParticleExplosion(gift.x + bounds.left, gift.y + bounds.top, 8);
+                        activeGifts.splice(i, 1);
+
+                        if (aggregateScore >= 15) {
+                            activeGameLoop = false;
+                            clearTimeout(loopTimer);
+                            setTimeout(() => { navigateToStage('view-victory'); }, 400);
+                        }
+                        continue;
+                    }
+
+                    if (gift.y > canvas.height + 25) {
+                        activeGifts.splice(i, 1);
+                    }
+                }
+
+                requestAnimationFrame(frameRenderCycle);
+            }
+            requestAnimationFrame(frameRenderCycle);
+        }
+
+        // --- SNIPPET DECK ANIMATION HANDLER ---
+        function executeFactDeckSwipeAnimation() {
+            const elements = document.querySelectorAll('#facts-deck-stage-hook .deck-item-card');
+            const trigger = document.getElementById('deck-action-trigger');
+            
+            if (factCardIndex < elements.length) {
+                const rect = trigger.getBoundingClientRect();
+                triggerBurstParticleExplosion(rect.left + rect.width / 2, rect.top, 8);
+
+                elements[factCardIndex].classList.remove('item-active');
+                elements[factCardIndex].classList.add('item-swiped');
+                factCardIndex++;
+                
+                if (factCardIndex < elements.length) {
+                    elements[factCardIndex].classList.add('item-active');
+                    if (factCardIndex === elements.length - 1) {
+                        trigger.innerText = "Unlock Secret Question 🤫";
+                    }
+                } else {
+                    navigateToStage('view-quiz-secret');
+                }
+            }
+        }
+
+        // --- SCRAPBOARD QUIZ RESPONSE CONTROLLER ---
+        function evaluateQuizResponse(node, sectionId, solutionCode) {
+            // Apply Stamp Aesthetics Instantly
+            node.classList.add('stamped-state');
+            const bounds = node.getBoundingClientRect();
+            triggerBurstParticleExplosion(bounds.left + bounds.width/2, bounds.top + bounds.height/2, 10);
+
+            setTimeout(() => {
+                if (sectionId === 'secret') {
+                    const logger = document.getElementById('quiz-logger-secret');
+                    const optB = document.getElementById('quiz-btn-secret-b');
+                    const card = document.getElementById('quiz-card-secret');
+
+                    if (solutionCode === 'A') {
+                        node.classList.add('status-right');
+                        logger.innerText = "Correct answer detected. 😌";
+                        logger.style.opacity = "1";
+                        setTimeout(() => { navigateToStage('view-quiz-1'); }, 1800);
+                    } else {
+                        card.classList.add('shake-widget-anim');
+                        node.classList.add('status-wrong');
+                        logger.innerText = "Incorrect. Please try again. 🐱💖";
+                        logger.style.opacity = "1";
+                        
+                        setTimeout(() => {
+                            card.classList.remove('shake-widget-anim');
+                            node.classList.remove('status-wrong');
+                            node.classList.remove('stamped-state');
+                            optB.style.transform = "scale(0.85) rotate(-2deg)";
+                        }, 800);
+                    }
+                }
+                else if (sectionId === 1) {
+                    const logger = document.getElementById('quiz-logger-1');
+                    node.classList.add('status-right');
+                    logger.innerHTML = "Identity confirmed.<br>You are exactly who we expected. 🐱💖";
+                    logger.style.opacity = "1";
+                    setTimeout(() => { navigateToStage('view-quiz-2'); }, 2200);
+                }
+                else if (sectionId === 2) {
+                    const logger = document.getElementById('quiz-logger-2');
+                    node.classList.add('status-right');
+                    logger.innerHTML = "After careful investigation...<br>The Cat Council has reached a verdict.<br>Guilty on all counts. 😾💖";
+                    logger.style.opacity = "1";
+                    setTimeout(() => { navigateToStage('view-quiz-boss'); }, 2500);
+                }
+                else if (sectionId === 'boss') {
+                    const logger = document.getElementById('quiz-logger-boss');
+                    const card = document.getElementById('quiz-card-boss');
+
+                    if (solutionCode === 'D') {
+                        node.classList.add('status-right');
+                        logger.innerHTML = "Nice try. The answer was D.<br>The Cat Council voted unanimously. 😌🌸";
+                        logger.style.opacity = "1";
+                        setTimeout(() => { navigateToStage('view-secret'); }, 2500);
+                    } else {
+                        card.classList.add('shake-widget-anim');
+                        node.classList.add('status-wrong');
+                        logger.innerText = "The Cat Council disagrees. Try D! ✨";
+                        logger.style.opacity = "1";
+                        setTimeout(() => {
+                            card.classList.remove('shake-widget-anim');
+                            node.classList.remove('status-wrong');
+                            node.classList.remove('stamped-state');
+                        }, 800);
+                    }
+                }
+            }, 350);
+        }
+
+        // --- UNPACK EFFECT FOR HAPPINESS UNIT ---
+        function triggerKitBlastEffect(e) {
+            const card = e.currentTarget;
+            card.style.transform = "scale(1.06) rotate(-1deg)";
+            const bounds = card.getBoundingClientRect();
+            triggerBurstParticleExplosion(bounds.left + bounds.width/2, bounds.top + bounds.height/2, 14);
+            setTimeout(() => { card.style.transform = ""; }, 200);
+        }
+
+        // --- ENVELOPE SHEET EXTRACTOR ---
+        function openMechanicalLetterCard(node) {
+            if (node.classList.contains('state-open')) return;
+            node.classList.add('state-open');
+            setTimeout(() => {
+                document.getElementById('envelope-action-btn').style.display = "block";
+            }, 600);
+        }
+
+        // --- SYSTEM CORE PROGRESS DISPATCHER ---
+        function initiateSystemLoaderSequence() {
+            document.getElementById('envelope-interactive-card').style.display = "none";
+            document.getElementById('system-universe-loader').style.display = "block";
+            
+            const fill = document.getElementById('loader-rail-fill');
+            const percent = document.getElementById('loader-percentage-counter');
+            const stateText = document.getElementById('loader-status-string');
+            const dogPod = document.getElementById('loader-dog-avatar-pod');
+            
+            const strings = [
+                "Scanning universe...",
+                "Calculating cuteness...",
+                "Finding the prettiest thing...",
+                "Almost there..."
+            ];
+
+            let value = 0;
+            const cycle = setInterval(() => {
+                value += 1;
+                fill.style.width = value + "%";
+                percent.innerText = value + "%";
+
+                if (value === 25) stateText.innerText = strings[1];
+                
+                if (value === 50) {
+                    stateText.innerText = strings[2];
+                    dogPod.classList.add('state-visible');
+                    // Sparkle flash on 50% Polaroid popup reveal
+                    const rect = dogPod.getBoundingClientRect();
+                    triggerBurstParticleExplosion(rect.left + rect.width/2, rect.top + rect.height/2, 12);
+                }
+                
+                if (value === 75) stateText.innerText = strings[3];
+
+                if (value >= 100) {
+                    clearInterval(cycle);
+                    setTimeout(() => {
+                        navigateToStage('view-finale');
+                        runGrandFinaleNarrativeEngine();
+                    }, 600);
+                }
+            }, 60);
+        }
+
+        // --- PRESTIGE STACK REVEAL TIMELINE ENGINE ---
+        function runGrandFinaleNarrativeEngine() {
+            const totalElements = 7;
+            let index = 0;
+
+            function processNextMemoryNode() {
+                if (index < totalElements) {
+                    if (index === 4) {
+                        const frame = document.getElementById('finale-portrait-frame');
+                        frame.classList.add('state-active');
+                        const r = frame.getBoundingClientRect();
+                        triggerBurstParticleExplosion(r.left + r.width/2, r.top + r.height/2, 18);
+                    }
+
+                    if (index > 0) {
+                        const pastNode = document.getElementById(`reveal-node-${index - 1}`);
+                        pastNode.classList.remove('state-active');
+                        pastNode.classList.add('state-buried');
+                        pastNode.style.zIndex = index;
+                    }
+
+                    const targetNode = document.getElementById(`reveal-node-${index}`);
+                    targetNode.classList.add('state-active');
+                    targetNode.style.zIndex = index + 10;
+                    
+                    const bounds = targetNode.getBoundingClientRect();
+                    triggerBurstParticleExplosion(bounds.left + bounds.width/2, bounds.top + bounds.height/2, 5);
+
+                    index++;
+                    setTimeout(processNextMemoryNode, 3800);
+                } else {
+                    // Bury all individual layers cleanly and reveal pristine master summary card
+                    for(let i=0; i<totalElements; i++) {
+                        document.getElementById(`reveal-node-${i}`).style.display = "none";
+                    }
+                    
+                    const stack = document.getElementById('notes-stack-container');
+                    stack.innerHTML = `
+                        <div class="handwritten-stack-note state-active" style="position:relative; width:100%; box-shadow:0 10px 25px rgba(255,117,151,0.15); border-left-color:var(--pink-deep); background:#fffdf4;">
+                            The prettiest thing was never on this page.<br><br>
+                            It was always the person reading it. 🌷💖<br><br>
+                            🤍 Take care of yourself, okay?<br><br>
+                            🌸 The world feels a little nicer when you're in it. 💖
+                        </div>
+                    `;
+                    
+                    const bar = document.getElementById('finale-action-bar');
+                    bar.style.opacity = "1";
+                    bar.style.pointerEvents = "auto";
+
+                    // Continuously generate happy ending ambient sparkle clusters
+                    setInterval(() => {
+                        triggerBurstParticleExplosion(Math.random() * window.innerWidth, Math.random() * window.innerHeight, 3);
+                    }, 700);
+                }
+            }
+            setTimeout(processNextMemoryNode, 500);
+        }
+
+        function copyFinaleTextToClipboard(btn) {
+            const raw = `The prettiest thing was never on this page.\n\nIt was always the person reading it. 🌷💖\n\n🤍 Take care of yourself, okay?\n\n🌸 The world feels a little nicer when you're in it. 💖`;
+            navigator.clipboard.writeText(raw).then(() => {
+                const textBackup = btn.innerHTML;
+                btn.innerHTML = "Copied to clipboard! 💖";
+                setTimeout(() => { btn.innerHTML = textBackup; }, 2000);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', runParticleAmbientLoop);
+    </script>
+</body>
+</html>
